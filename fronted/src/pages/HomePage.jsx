@@ -9,15 +9,18 @@ import Result from "./Result.jsx";
 const HomePage = () => {
   const { isGameEnd } = TypeState();
 
-  return isGameEnd ? (
-    <Result />
-  ) : (
+  return (
     <>
       <Header />
       <div id="main">
         <InformationBar />
-        <CurrTimeSpeed />
-        <Game />
+        {isGameEnd ? (
+          <Result />
+        ) : (
+          <>
+            <CurrTimeSpeed /> <Game />
+          </>
+        )}
       </div>
     </>
   );

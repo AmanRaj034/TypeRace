@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { TypeState } from "../../context/TypeProvider.jsx";
 
 const InformationBar = () => {
-  const { setTime, handleTimeChange } = TypeState();
+  const { handleTimeChange, isGameEnd, setReset, reset } = TypeState();
 
   const handleClick = (clickTime) => {
     localStorage.setItem("prevSelectTime", clickTime);
@@ -19,6 +19,9 @@ const InformationBar = () => {
       </div>
       <div className="button">
         <button>MultiPlayer</button>
+        <button style={{ marginLeft: "40px" }} onClick={() => setReset(!reset)}>
+          New Game
+        </button>
       </div>
     </div>
   );

@@ -11,21 +11,34 @@ const CurrTimeSpeed = () => {
     accuracy,
     errorChar,
     correctChar,
+    rawSpeed,
   } = TypeState();
 
-  useEffect(() => {
+  const handleRawWpm = () => {
     const startTime = parseInt(localStorage.getItem("prevSelectTime"));
     if (startTime !== time)
-      speed.current = parseInt(correctWord / ((startTime - time) / 60)).toFixed(
-        0
-      );
+      rawSpeed.current = parseInt(
+        ((correctChar + errorChar) * 60) / (5 * (startTime - time))
+      ).toFixed(0);
+    else rawSpeed.current = 0;
+  };
+
+  const handleNetWpm = () => {
+    const startTime = parseInt(localStorage.getItem("prevSelectTime"));
+    if (startTime !== time)
+      speed.current = parseInt(
+        rawSpeed.current - (errorChar * 60) / (5 * (startTime - time))
+      ).toFixed(0);
     else speed.current = 0;
-  }, [correctWord, errorWord]);
+    //if (speed.current < 0) speed.current = 0;
+  };
 
   useEffect(() => {
     accuracy.current = correctChar / (correctChar + errorChar);
     accuracy.current *= 100;
     accuracy.current = accuracy.current.toFixed(0);
+    handleRawWpm();
+    handleNetWpm();
   }, [correctChar, errorChar]);
 
   return (
@@ -38,7 +51,9 @@ const CurrTimeSpeed = () => {
       }}
     >
       <span>{time}</span>
-      <span>{isGameRunning ? speed.current : ""}</span>
+      <span>
+        {isGameRunning ? (speed.current < 0 ? 0 : speed.current) : ""}
+      </span>
     </div>
   );
 };

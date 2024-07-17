@@ -14,6 +14,7 @@ const TypeProvider = ({ children }) => {
   const [reset, setReset] = useState(false);
   const intervalRef = useRef(null);
   const speed = useRef(0);
+  const rawSpeed = useRef(0);
   const arrayWord = useRef([]);
   const [errorWord, setErrorWord] = useState(0);
   const [correctWord, setCorrectWord] = useState(0);
@@ -29,13 +30,17 @@ const TypeProvider = ({ children }) => {
     setIsGameEnd(false);
     setIsGameRunning(false);
     setIsGameStart(false);
-    speed.current = setErrorWord(0);
+    speed.current = 0;
+    setErrorWord(0);
     setCorrectWord(0);
     setErrorChar(0);
     setCorrectChar(0);
     arrayWord.current = [];
     accuracy.current = 0;
+    rawSpeed.current = 0;
     clearInterval(intervalRef.current);
+    var temp = parseInt(localStorage.getItem("prevSelectTime"));
+    temp ? setTime(temp) : setTime(30);
   }, [reset]);
 
   const handleTimeChange = () => {
@@ -98,6 +103,7 @@ const TypeProvider = ({ children }) => {
         setErrorWord,
         setErrorChar,
         accuracy,
+        rawSpeed,
       }}
     >
       {children}

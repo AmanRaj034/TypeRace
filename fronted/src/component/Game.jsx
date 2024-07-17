@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
 import { TypeState } from "../../context/TypeProvider.jsx";
 import WordCard from "../../features/WordCard.jsx";
+import Result from "../pages/Result.jsx";
 
 const Game = () => {
   const [words, setWords] = useState("");
@@ -54,7 +55,7 @@ const Game = () => {
       el.classList.add(name);
       if (name === "incorrect")
         (allCorrect.current -= 1), setErrorChar(errorChar + 1);
-      else setCorrectChar(correctChar + 1);
+      else if (name === "correct") setCorrectChar(correctChar + 1);
     } else {
       console.log("Msg From Add Class : element Is Null\n");
     }
@@ -289,6 +290,43 @@ const Game = () => {
     // Clean up the event listener on component unmount
     return () => {
       window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  // Handling Cursor whenver page is scroll
+  const [scrollPosition, setScrollPosition] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (textref.current.querySelector(".letter.current") != null) {
+        var nextLetter = textref.current.querySelector(".letter.current");
+        var nextWord = textref.current.querySelector(".word.current");
+        var cursor = textref.current.querySelector(".cursor");
+        cursor.style.top =
+          (nextLetter || nextWord).getBoundingClientRect().top + 2 + "px";
+        cursor.style.left =
+          (nextLetter || nextWord).getBoundingClientRect()[
+            nextLetter ? "left" : "right"
+          ] + "px";
+      } else {
+        var nextLetter = textref.current.querySelector(".letter");
+        var nextWord = textref.current.querySelector(".word");
+        var cursor = textref.current.querySelector(".cursor");
+        cursor.style.top =
+          (nextLetter || nextWord).getBoundingClientRect().top + 2 + "px";
+        cursor.style.left =
+          (nextLetter || nextWord).getBoundingClientRect()[
+            nextLetter ? "left" : "right"
+          ] + "px";
+      }
+      const position = window.scrollY;
+      setScrollPosition(position);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
