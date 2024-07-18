@@ -1,12 +1,18 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { TypeState } from "../../context/TypeProvider.jsx";
+import MultiPlayer from "./MultiPlayer.jsx";
 
 const InformationBar = () => {
-  const { handleTimeChange, isGameEnd, setReset, reset } = TypeState();
+  const { handleTimeChange, setReset, reset, multiplayer, setMultiplayer } =
+    TypeState();
 
   const handleClick = (clickTime) => {
     localStorage.setItem("prevSelectTime", clickTime);
     handleTimeChange();
+  };
+
+  const handleMultiPlayer = () => {
+    setMultiplayer(true);
   };
 
   return (
@@ -18,7 +24,8 @@ const InformationBar = () => {
         <span onClick={() => handleClick(120)}>120</span>
       </div>
       <div className="button">
-        <button>MultiPlayer</button>
+        <button onClick={() => handleMultiPlayer()}>MultiPlayer</button>
+        {multiplayer && <MultiPlayer />}
         <button style={{ marginLeft: "40px" }} onClick={() => setReset(!reset)}>
           New Game
         </button>

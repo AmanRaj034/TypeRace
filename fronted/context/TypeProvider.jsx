@@ -21,6 +21,7 @@ const TypeProvider = ({ children }) => {
   const [correctChar, setCorrectChar] = useState(0);
   const [errorChar, setErrorChar] = useState(0);
   const accuracy = useRef(0);
+  const [multiplayer, setMultiplayer] = useState(false);
 
   const handleEndTime = () => {
     setIsGameEnd(true);
@@ -41,6 +42,7 @@ const TypeProvider = ({ children }) => {
     clearInterval(intervalRef.current);
     var temp = parseInt(localStorage.getItem("prevSelectTime"));
     temp ? setTime(temp) : setTime(30);
+    setMultiplayer(false);
   }, [reset]);
 
   const handleTimeChange = () => {
@@ -104,6 +106,8 @@ const TypeProvider = ({ children }) => {
         setErrorChar,
         accuracy,
         rawSpeed,
+        multiplayer,
+        setMultiplayer,
       }}
     >
       {children}
