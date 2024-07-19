@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { io } from "socket.io-client";
 
-const ENDPOINT = "http://localhost:3000/";
+const ENDPOINT = "https://typerace-r522.onrender.com/";
 var socket, selectedChatCompare;
 
 const MultiPlayer = () => {
