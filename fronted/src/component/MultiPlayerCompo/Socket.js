@@ -1,5 +1,5 @@
 import { io } from "socket.io-client";
 
-const ENDPOINT = "http://localhost:3000/";
+const ENDPOINT = "https://typerace-r522.onrender.com/";
 
 export const socket = io(ENDPOINT, { autoConnect: false });
