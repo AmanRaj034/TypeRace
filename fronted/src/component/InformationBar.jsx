@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { TypeState } from "../../context/TypeProvider.jsx";
 import MultiPlayer from "./MultiPlayer.jsx";
+import { useNavigate } from "react-router-dom";
 
 const InformationBar = () => {
-  const { handleTimeChange, setReset, reset, multiplayer, setMultiplayer } =
-    TypeState();
+  const navigate = useNavigate();
+
+  const { handleTimeChange, setReset, reset, multiplayer } = TypeState();
 
   const handleClick = (clickTime) => {
     localStorage.setItem("prevSelectTime", clickTime);
@@ -12,7 +14,7 @@ const InformationBar = () => {
   };
 
   const handleMultiPlayer = () => {
-    setMultiplayer(true);
+    navigate("/multiplayer");
   };
 
   return (
@@ -25,7 +27,6 @@ const InformationBar = () => {
       </div>
       <div className="button">
         <button onClick={() => handleMultiPlayer()}>MultiPlayer</button>
-        {multiplayer && <MultiPlayer />}
         <button style={{ marginLeft: "40px" }} onClick={() => setReset(!reset)}>
           New Game
         </button>

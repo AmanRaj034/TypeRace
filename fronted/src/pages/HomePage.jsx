@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Header from "../component/Header";
 import InformationBar from "../component/InformationBar";
 import Game from "../component/Game";
@@ -7,6 +7,8 @@ import { TypeState } from "../../context/TypeProvider.jsx";
 import Result from "./Result.jsx";
 
 const HomePage = () => {
+  const { isGameEnd } = TypeState();
+
   return (
     <>
       <Header />

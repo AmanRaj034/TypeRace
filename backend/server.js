@@ -5,6 +5,7 @@ import wordsRoutes from "./routes/wordsRoutes.js";
 import cors from "cors";
 import { Server } from 'socket.io';
 import { createServer } from 'http';
+import UsersConnection from "./socketHandler/UsersConnection.js";
 dotenv.config();
 
 const app = express();
@@ -26,7 +27,9 @@ const io = new Server(server, {
 
 
 io.on("connection", (socket) => {
-    console.log("User Connected", socket.id);
+    console.log("User Connected");
+    socket.emit("connected", socket.id);
+    UsersConnection(socket, io);
 })
 
 app.get("/", (req, res) => {

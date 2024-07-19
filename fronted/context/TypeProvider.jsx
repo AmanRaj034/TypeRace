@@ -27,6 +27,10 @@ const TypeProvider = ({ children }) => {
     setIsGameEnd(true);
   };
 
+  const handleEndTimeMulti = () => {
+    setMultiplayer(false);
+  };
+
   useEffect(() => {
     setIsGameEnd(false);
     setIsGameRunning(false);
@@ -108,6 +112,7 @@ const TypeProvider = ({ children }) => {
         rawSpeed,
         multiplayer,
         setMultiplayer,
+        handleEndTimeMulti,
       }}
     >
       {children}
