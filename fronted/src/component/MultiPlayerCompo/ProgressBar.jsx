@@ -1,11 +1,10 @@
 import React, { useEffect, useRef } from "react";
 import { TypeState } from "../../../context/TypeProvider.jsx";
-import { socket } from "./Socket";
 import "./Progress.css";
 
 const ProgressBar = ({ progress, user, color }) => {
   return (
-    <div className="progress-container">
+    <div className="progress-container" style={{ marginTop: "7vh" }}>
       <div
         className="progress-bar"
         style={{ width: `${progress}%`, backgroundColor: color }}

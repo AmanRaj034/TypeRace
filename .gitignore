@@ -13,6 +13,8 @@ dist-ssr
 *.local
 .env
 resuource
+lear.docx
+~$lear.docx
 
 # Editor directories and files
 .vscode/*

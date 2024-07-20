@@ -12,6 +12,8 @@ dist
 dist-ssr
 *.local
 Style Test/
+lear.docx
+~$lear.docx
 
 # Editor directories and files
 .vscode/*

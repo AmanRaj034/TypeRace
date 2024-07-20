@@ -160,6 +160,24 @@ div.game {
      border-bottom: 1px solid #f55;
     }
 
+  @keyframes blink {
+   0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.blink {
+ animation: blink 1s infinite;
+ font-size: 2rem;
+  animation: blink 1.5s infinite;
+   transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+
     .letter.space.incorrect{
      color:${({ theme }) => theme.background};
      border-bottom: 1px solid #f55;

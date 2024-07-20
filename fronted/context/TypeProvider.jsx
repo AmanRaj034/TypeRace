@@ -22,6 +22,7 @@ const TypeProvider = ({ children }) => {
   const [errorChar, setErrorChar] = useState(0);
   const accuracy = useRef(0);
   const [multiplayer, setMultiplayer] = useState(false);
+  const [playerName, setPlayerName] = useState("");
 
   const handleEndTime = () => {
     setIsGameEnd(true);
@@ -46,6 +47,8 @@ const TypeProvider = ({ children }) => {
     clearInterval(intervalRef.current);
     var temp = parseInt(localStorage.getItem("prevSelectTime"));
     temp ? setTime(temp) : setTime(30);
+    var Name = localStorage.getItem("PlayerName");
+    Name ? setPlayerName(Name) : "";
     setMultiplayer(false);
   }, [reset]);
 
@@ -80,6 +83,8 @@ const TypeProvider = ({ children }) => {
 
   useEffect(() => {
     // Cleanup interval on component unmount
+    var Name = localStorage.getItem("PlayerName");
+    Name ? setPlayerName(Name) : "";
     return () => clearInterval(intervalRef.current);
   }, []);
 
@@ -113,6 +118,8 @@ const TypeProvider = ({ children }) => {
         multiplayer,
         setMultiplayer,
         handleEndTimeMulti,
+        playerName,
+        setPlayerName,
       }}
     >
       {children}

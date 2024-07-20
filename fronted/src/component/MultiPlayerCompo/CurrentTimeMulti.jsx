@@ -1,8 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { TypeState } from "../../../context/TypeProvider.jsx";
-import { socket } from "./Socket.js";
 
-const CurrTimeMulti = () => {
+const CurrTimeMulti = ({ time }) => {
   const {
     isGameRunning,
     speed,
@@ -14,34 +13,10 @@ const CurrTimeMulti = () => {
     rawSpeed,
     setIsGameEnd,
     setMultiplayer,
-    handleEndTimeMulti,
   } = TypeState();
 
-  const [time, setTime] = useState(30);
-  const intervalRef = useRef(null);
-
-  useEffect(() => {
-    socket.on("time", (Time) => {
-      setTime(Time);
-      speed.current = 0;
-      // Clear any existing interval
-      clearInterval(intervalRef.current);
-      // Set up a new interval
-      intervalRef.current = setInterval(() => {
-        setTime((prevTime) => {
-          if (prevTime <= 1) {
-            handleEndTimeMulti();
-            clearInterval(intervalRef.current);
-            return 0;
-          }
-          return prevTime - 1;
-        });
-      }, 1000); // Decrement every second
-    });
-  });
-
   const handleRawWpm = () => {
-    const startTime = parseInt(localStorage.getItem("prevSelectTime"));
+    const startTime = 30;
     if (startTime !== time)
       rawSpeed.current = parseInt(
         ((correctChar + errorChar) * 60) / (5 * (startTime - time))
@@ -50,7 +25,7 @@ const CurrTimeMulti = () => {
   };
 
   const handleNetWpm = () => {
-    const startTime = parseInt(localStorage.getItem("prevSelectTime"));
+    const startTime = 30;
     if (startTime !== time)
       speed.current = parseInt(
         rawSpeed.current - (errorChar * 60) / (5 * (startTime - time))

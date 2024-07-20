@@ -19,6 +19,6 @@
     "express": "^4.19.2",
     "nodemon": "^3.1.4",
     "random-words": "^2.0.1",
-    "socket.io": "^4.7.5"
+    "socket.io": "^4.7.1"
   }
 }

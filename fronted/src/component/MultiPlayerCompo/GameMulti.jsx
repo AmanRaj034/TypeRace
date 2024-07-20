@@ -2,10 +2,11 @@ import React, { useEffect, useRef, useState } from "react";
 import { TypeState } from "../../../context/TypeProvider.jsx";
 import WordCard from "../../../features/WordCard.jsx";
 import Result from "../../pages/Result.jsx";
-import { socket } from "./Socket.js";
+import { SocketState } from "../../../context/SocketProvider.jsx";
+// import { socket } from "./Socket.js";
 
-const GameMulti = () => {
-  const [words, setWords] = useState("");
+const GameMulti = ({ words, setWords }) => {
+  // const [words, setWords] = useState("");
   const {
     time,
     isGameStart,
@@ -21,6 +22,7 @@ const GameMulti = () => {
     setCorrectChar,
     setErrorWord,
   } = TypeState();
+
   const typedLetter = useRef("");
   const start = useRef(0);
   const curentMargin = useRef(0);
@@ -60,13 +62,7 @@ const GameMulti = () => {
     }
   };
 
-  useEffect(() => {
-    socket.on("words", (ServerWords) => {
-      setWords(ServerWords);
-    });
-
-    socket.emit("NoWords", words.split(" ").length);
-  }, []);
+  useEffect(() => {}, []);
 
   const handleKeyPress = async (e) => {
     // try
@@ -242,7 +238,7 @@ const GameMulti = () => {
       (nextLetter || nextWord).getBoundingClientRect()[
         nextLetter ? "left" : "right"
       ] + "px";
-  }, [words]);
+  }, []);
 
   // Handle Cursor Positon When dimension is chnaged
   const [windowDimensions, setWindowDimensions] = useState({

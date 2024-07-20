@@ -40,6 +40,7 @@ const Game = () => {
   };
 
   const fetchwords = async () => {
+    console.log("hhh");
     try {
       const { data } = await axios.post(`api/words`, {
         time,
