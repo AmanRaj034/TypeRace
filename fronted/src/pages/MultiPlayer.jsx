@@ -13,7 +13,7 @@ import Waiting from "../component/MultiPlayerCompo/Waiting.jsx";
 import InformationBarMulti from "../component/MultiPlayerCompo/InformationBarMulti.jsx";
 
 let socket;
-const ENDPOINT = "http://localhost:3000/";
+const ENDPOINT = "https://typerace-r522.onrender.com/";
 
 const MultiPlayer = () => {
   const { state } = useLocation();
